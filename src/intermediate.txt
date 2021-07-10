@@ -1,0 +1,360 @@
+ARRAY 2 NOTINIT INTTK bigintarr 2 100 
+ARRAY 1 NOTINIT INTTK bigintlength 2 
+ARRAY 1 NOTINIT INTTK result 200 
+FUNCTION min INTTK 
+PARA INTTK a 
+PARA INTTK b 
+ASSIGN #expr1 = a 
+ASSIGN #expr2 = b 
+GRE #expr1 #expr2 BF LABEL0 
+ASSIGN #expr1 = b 
+RET #expr1 
+GOTO LABEL1 
+SET LABEL0 
+ASSIGN #expr1 = a 
+RET #expr1 
+SET LABEL1 
+FUNCTION max INTTK 
+PARA INTTK a 
+PARA INTTK b 
+ASSIGN #expr1 = a 
+ASSIGN #expr2 = b 
+GRE #expr1 #expr2 BF LABEL2 
+ASSIGN #expr1 = a 
+RET #expr1 
+GOTO LABEL3 
+SET LABEL2 
+ASSIGN #expr1 = b 
+RET #expr1 
+SET LABEL3 
+FUNCTION compare INTTK 
+VAR INTTK i = 0 
+DIM 0 
+LOADARR $t2 bigintlength 
+ASSIGN #expr1 = $t2 
+DIM 1 
+LOADARR $t2 bigintlength 
+ASSIGN #expr2 = $t2 
+GRE #expr1 #expr2 BF LABEL4 
+ASSIGN #expr1 = 1 
+RET #expr1 
+GOTO LABEL5 
+SET LABEL4 
+SET LABEL5 
+DIM 0 
+LOADARR $t2 bigintlength 
+ASSIGN #expr1 = $t2 
+DIM 1 
+LOADARR $t2 bigintlength 
+ASSIGN #expr2 = $t2 
+LSS #expr1 #expr2 BF LABEL6 
+MINU $t2 = $0 - 1 
+ASSIGN #expr1 = $t2 
+RET #expr1 
+GOTO LABEL7 
+SET LABEL6 
+SET LABEL7 
+SET LABEL8 
+ASSIGN #expr1 = i 
+DIM 0 
+LOADARR $t2 bigintlength 
+ASSIGN #expr2 = $t2 
+LSS #expr1 #expr2 BF LABEL9 
+DIM 0 
+DIM i 
+LOADARR $t2 bigintarr 
+ASSIGN #expr1 = $t2 
+DIM 1 
+DIM i 
+LOADARR $t2 bigintarr 
+ASSIGN #expr2 = $t2 
+GRE #expr1 #expr2 BF LABEL10 
+ASSIGN #expr1 = 1 
+RET #expr1 
+GOTO LABEL11 
+SET LABEL10 
+SET LABEL11 
+DIM 0 
+DIM i 
+LOADARR $t2 bigintarr 
+ASSIGN #expr1 = $t2 
+DIM 1 
+DIM i 
+LOADARR $t2 bigintarr 
+ASSIGN #expr2 = $t2 
+LSS #expr1 #expr2 BF LABEL12 
+MINU $t2 = $0 - 1 
+ASSIGN #expr1 = $t2 
+RET #expr1 
+GOTO LABEL13 
+SET LABEL12 
+SET LABEL13 
+PLUS $t2 = i + 1 
+ASSIGN i = $t2 
+GOTO LABEL8 
+SET LABEL9 
+ASSIGN #expr1 = 0 
+RET #expr1 
+FUNCTION subtract INTTK 
+ARRAY 1 NOTINIT INTTK a 100 
+ARRAY 1 NOTINIT INTTK b 100 
+ARRAY 1 NOTINIT INTTK c 100 
+VAR INTTK i 
+VAR INTTK j 
+VAR INTTK k 
+VAR INTTK flag 
+VAR INTTK l1 
+VAR INTTK l2 
+DIM 0 
+LOADARR $t2 bigintlength 
+ASSIGN l1 = $t2 
+DIM 1 
+LOADARR $t2 bigintlength 
+ASSIGN l2 = $t2 
+PUSH l1 
+PUSH l2 
+CALL min 
+ASSIGN $t2 = $v0 
+ASSIGN k = $t2 
+PUSH l1 
+PUSH l2 
+CALL max 
+ASSIGN $t2 = $v0 
+ASSIGN j = $t2 
+CALL compare 
+ASSIGN $t2 = $v0 
+ASSIGN #expr1 = $t2 
+ASSIGN #expr2 = 0 
+GEQ #expr1 #expr2 BF LABEL14 
+ASSIGN flag = 0 
+ASSIGN i = 0 
+SET LABEL16 
+ASSIGN #expr1 = i 
+ASSIGN #expr2 = l1 
+LSS #expr1 #expr2 BF LABEL17 
+DIM i 
+DIM 0 
+MINU $t2 = l1 - 1 
+MINU $t3 = $t2 - i 
+DIM $t3 
+LOADARR $t4 bigintarr 
+ASSIGN a = $t4 
+PLUS $t2 = i + 1 
+ASSIGN i = $t2 
+GOTO LABEL16 
+SET LABEL17 
+ASSIGN i = 0 
+SET LABEL18 
+ASSIGN #expr1 = i 
+ASSIGN #expr2 = l2 
+LSS #expr1 #expr2 BF LABEL19 
+DIM i 
+DIM 1 
+MINU $t2 = l2 - 1 
+MINU $t3 = $t2 - i 
+DIM $t3 
+LOADARR $t4 bigintarr 
+ASSIGN b = $t4 
+PLUS $t2 = i + 1 
+ASSIGN i = $t2 
+GOTO LABEL18 
+SET LABEL19 
+GOTO LABEL15 
+SET LABEL14 
+ASSIGN flag = 1 
+ASSIGN i = 0 
+SET LABEL20 
+ASSIGN #expr1 = i 
+ASSIGN #expr2 = l2 
+LSS #expr1 #expr2 BF LABEL21 
+DIM i 
+DIM 1 
+MINU $t2 = l2 - 1 
+MINU $t3 = $t2 - i 
+DIM $t3 
+LOADARR $t4 bigintarr 
+ASSIGN a = $t4 
+PLUS $t2 = i + 1 
+ASSIGN i = $t2 
+GOTO LABEL20 
+SET LABEL21 
+ASSIGN i = 0 
+SET LABEL22 
+ASSIGN #expr1 = i 
+ASSIGN #expr2 = l1 
+LSS #expr1 #expr2 BF LABEL23 
+DIM i 
+DIM 0 
+MINU $t2 = l1 - 1 
+MINU $t3 = $t2 - i 
+DIM $t3 
+LOADARR $t4 bigintarr 
+ASSIGN b = $t4 
+PLUS $t2 = i + 1 
+ASSIGN i = $t2 
+GOTO LABEL22 
+SET LABEL23 
+SET LABEL15 
+ASSIGN i = 0 
+SET LABEL24 
+ASSIGN #expr1 = i 
+ASSIGN #expr2 = k 
+LSS #expr1 #expr2 BF LABEL25 
+DIM i 
+LOADARR $t2 a 
+ASSIGN #expr1 = $t2 
+DIM i 
+LOADARR $t2 b 
+ASSIGN #expr2 = $t2 
+GEQ #expr1 #expr2 BF LABEL26 
+DIM i 
+DIM i 
+LOADARR $t2 a 
+DIM i 
+LOADARR $t3 b 
+MINU $t4 = $t2 - $t3 
+ASSIGN c = $t4 
+GOTO LABEL27 
+SET LABEL26 
+DIM i 
+DIM i 
+LOADARR $t2 a 
+PLUS $t3 = $t2 + 10 
+DIM i 
+LOADARR $t4 b 
+MINU $t5 = $t3 - $t4 
+ASSIGN c = $t5 
+PLUS $t2 = i + 1 
+DIM $t2 
+PLUS $t3 = i + 1 
+DIM $t3 
+LOADARR $t4 a 
+MINU $t5 = $t4 - 1 
+ASSIGN a = $t5 
+SET LABEL27 
+PLUS $t2 = i + 1 
+ASSIGN i = $t2 
+GOTO LABEL24 
+SET LABEL25 
+SET LABEL28 
+ASSIGN #expr1 = i 
+ASSIGN #expr2 = j 
+LSS #expr1 #expr2 BF LABEL29 
+DIM i 
+LOADARR $t2 a 
+ASSIGN #expr1 = $t2 
+ASSIGN #expr2 = 0 
+GEQ #expr1 #expr2 BF LABEL30 
+DIM i 
+DIM i 
+LOADARR $t2 a 
+ASSIGN c = $t2 
+GOTO LABEL31 
+SET LABEL30 
+DIM i 
+DIM i 
+LOADARR $t2 a 
+PLUS $t3 = $t2 + 10 
+ASSIGN c = $t3 
+PLUS $t2 = i + 1 
+DIM $t2 
+PLUS $t3 = i + 1 
+DIM $t3 
+LOADARR $t4 a 
+MINU $t5 = $t4 - 1 
+ASSIGN a = $t5 
+SET LABEL31 
+PLUS $t2 = i + 1 
+ASSIGN i = $t2 
+GOTO LABEL28 
+SET LABEL29 
+SET LABEL32 
+MINU $t2 = i - 1 
+DIM $t2 
+LOADARR $t3 c 
+ASSIGN #expr1 = $t3 
+ASSIGN #expr2 = 0 
+EQL #expr1 #expr2 BF LABEL33 
+MINU $t2 = i - 1 
+ASSIGN i = $t2 
+GOTO LABEL32 
+SET LABEL33 
+ASSIGN j = 0 
+ASSIGN #expr1 = flag 
+ASSIGN #expr2 = 1 
+EQL #expr1 #expr2 BF LABEL34 
+PRINTF "-" 
+GOTO LABEL35 
+SET LABEL34 
+SET LABEL35 
+MINU $t2 = i - 1 
+ASSIGN k = $t2 
+SET LABEL36 
+ASSIGN #expr1 = k 
+MINU $t2 = $0 - 1 
+ASSIGN #expr2 = $t2 
+GRE #expr1 #expr2 BF LABEL37 
+DIM j 
+DIM k 
+LOADARR $t2 c 
+ASSIGN result = $t2 
+MINU $t2 = k - 1 
+ASSIGN k = $t2 
+PLUS $t2 = j + 1 
+ASSIGN j = $t2 
+GOTO LABEL36 
+SET LABEL37 
+ASSIGN #expr1 = j 
+RET #expr1 
+FUNCTION main VOIDTK 
+VAR INTTK n 
+VAR INTTK i = 0 
+VAR INTTK tmp 
+SCANF n 
+DIM 0 
+ASSIGN bigintlength = n 
+SET LABEL38 
+ASSIGN #expr1 = i 
+ASSIGN #expr2 = n 
+LSS #expr1 #expr2 BF LABEL39 
+SCANF tmp 
+DIM 0 
+DIM i 
+ASSIGN bigintarr = tmp 
+PLUS $t2 = i + 1 
+ASSIGN i = $t2 
+GOTO LABEL38 
+SET LABEL39 
+SCANF n 
+DIM 1 
+ASSIGN bigintlength = n 
+ASSIGN i = 0 
+SET LABEL40 
+ASSIGN #expr1 = i 
+ASSIGN #expr2 = n 
+LSS #expr1 #expr2 BF LABEL41 
+SCANF tmp 
+DIM 1 
+DIM i 
+ASSIGN bigintarr = tmp 
+PLUS $t2 = i + 1 
+ASSIGN i = $t2 
+GOTO LABEL40 
+SET LABEL41 
+ASSIGN i = 0 
+CALL subtract 
+ASSIGN $t2 = $v0 
+ASSIGN n = $t2 
+SET LABEL42 
+ASSIGN #expr1 = i 
+ASSIGN #expr2 = n 
+LSS #expr1 #expr2 BF LABEL43 
+DIM i 
+LOADARR $t2 result 
+ASSIGN #expr1 = $t2 
+PRINTF #expr1 INTTK 
+PLUS $t2 = i + 1 
+ASSIGN i = $t2 
+GOTO LABEL42 
+SET LABEL43 
+RET 
